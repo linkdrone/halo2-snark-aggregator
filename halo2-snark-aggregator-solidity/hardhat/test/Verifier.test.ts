@@ -2,6 +2,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber } from "ethers";
 import fs from "fs";
 import { ethers } from "hardhat";
+import path from "path";
 import { Verifier__factory } from "../typechain-types";
 import { Verifier } from "../typechain-types/Verifier";
 import { Signers } from "./types";
@@ -50,9 +51,12 @@ describe("Verifier", function () {
     console.log("verifier.address:", verifier.address);
   });
 
-  let proof = fs.readFileSync("output/verify_circuit_proof.data");
+  let proof = fs.readFileSync(
+    path.join(__dirname, "output/verify_circuit_proof.data")
+  );
+
   let final_pair = fs.readFileSync(
-    "output/verify_circuit_final_pair.data"
+    path.join(__dirname, "output/verify_circuit_final_pair.data")
     //	  "output/verify_circuit_instance.data"
   );
   console.log("proof length", proof.length);
