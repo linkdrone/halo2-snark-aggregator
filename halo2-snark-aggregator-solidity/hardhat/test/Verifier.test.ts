@@ -1,5 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber } from "ethers";
+import { parseEther } from "ethers/lib/utils";
 import fs from "fs";
 import { ethers } from "hardhat";
 import path from "path";
@@ -61,13 +62,24 @@ describe("Verifier", function () {
   );
   console.log("proof length", proof.length);
 
+  const proofUint256s = bufferToUint256LE(proof);
+  console.log('bufferToUint256LE(proof).last:', proofUint256s[proofUint256s.length - 1] + '');
+  console.log('bufferToUint256LE(proof).length:', bufferToUint256LE(proof).length);
   console.log(bufferToUint256LE(final_pair));
 
   it("verify", async () => {
-    let a = await verifier.verify(
-      bufferToUint256LE(proof),
-      bufferToUint256LE(final_pair)
-    );
-    console.log(a);
+    try {
+      let a = await verifier.verify(
+        bufferToUint256LE(proof),
+        bufferToUint256LE(final_pair),
+        { gasLimit: 30000000 }
+      );
+      console.log(a);
+
+      // let a = await verifier.testView(1280);
+      // console.log(a);
+    } catch (e: any) {
+      console.error("e:", e.message);
+    }
   });
 });

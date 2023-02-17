@@ -358,6 +358,6 @@ impl<E: MultiMillerLoop> TargetCircuit<E> for TestCircuit {
 zkaggregate! {1, vec![], TestCircuit}
 
 pub fn main() {
-    let builder = zkcli::builder(22);
+    let builder = zkcli::builder(6);
     builder.run()
 }
