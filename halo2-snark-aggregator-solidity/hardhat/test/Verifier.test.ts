@@ -75,9 +75,6 @@ describe("Verifier", function () {
         { gasLimit: 30000000 }
       );
       console.log(a);
-
-      // let a = await verifier.testView(1280);
-      // console.log(a);
     } catch (e: any) {
       console.error("e:", e.message);
     }
